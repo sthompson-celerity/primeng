@@ -74,7 +74,7 @@ export class Checkbox implements ControlValueAccessor {
 
     @ViewChild('cb') inputViewChild: ElementRef;
 
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
+    @Output() onChange: EventEmitter<CheckBoxEvent> = new EventEmitter();
 
     model: any;
 
@@ -173,3 +173,8 @@ export class Checkbox implements ControlValueAccessor {
     declarations: [Checkbox]
 })
 export class CheckboxModule { }
+
+export interface CheckBoxEvent {
+    checked: boolean;
+    originalEvent: Event;
+}

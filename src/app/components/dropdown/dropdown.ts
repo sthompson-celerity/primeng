@@ -48,7 +48,7 @@ export class DropdownItem {
 
     @Input() template: TemplateRef<any>;
 
-    @Output() onClick: EventEmitter<any> = new EventEmitter();
+    @Output() onClick: EventEmitter<DropDownOnOptionClickEvent> = new EventEmitter();
 
     onOptionClick(event: Event) {
         this.onClick.emit({
@@ -56,6 +56,11 @@ export class DropdownItem {
             option: this.option
         });
     }
+}
+
+export interface DropDownOnOptionClickEvent{
+    originalEvent: Event;
+    option: SelectItem;
 }
 
 @Component({
@@ -258,21 +263,21 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @Input() autofocusFilter: boolean = true;
 
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
+    @Output() onChange: EventEmitter<DropDownOnChangeEvent> = new EventEmitter();
 
-    @Output() onFilter: EventEmitter<any> = new EventEmitter();
+    @Output() onFilter: EventEmitter<DropDownOnFilterEvent> = new EventEmitter();
 
-    @Output() onFocus: EventEmitter<any> = new EventEmitter();
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter();
 
-    @Output() onBlur: EventEmitter<any> = new EventEmitter();
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter();
 
-    @Output() onClick: EventEmitter<any> = new EventEmitter();
+    @Output() onClick: EventEmitter<Event> = new EventEmitter();
 
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
+    @Output() onShow: EventEmitter<AnimationEvent> = new EventEmitter();
 
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
+    @Output() onHide: EventEmitter<AnimationEvent> = new EventEmitter();
 
-    @Output() onClear: EventEmitter<any> = new EventEmitter();
+    @Output() onClear: EventEmitter<Event> = new EventEmitter();
 
     @ViewChild('container') containerViewChild: ElementRef;
 
@@ -1288,6 +1293,14 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
 }
 
+export interface DropDownOnFilterEvent{
+    originalEvent: Event;
+    filter: string;
+}
+export interface DropDownOnChangeEvent{
+    originalEvent: Event;
+    value: any;
+}
 @NgModule({
     imports: [CommonModule,SharedModule,ScrollingModule,TooltipModule,RippleModule],
     exports: [Dropdown,SharedModule,ScrollingModule],
