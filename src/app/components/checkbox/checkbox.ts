@@ -74,7 +74,7 @@ export class Checkbox implements ControlValueAccessor {
 
     @ViewChild('cb') inputViewChild: ElementRef;
 
-    @Output() onChange: EventEmitter<CheckBoxEvent> = new EventEmitter();
+    @Output() onChange: EventEmitter<CheckBoxOnChangeEvent> = new EventEmitter();
 
     model: any;
 
@@ -167,14 +167,14 @@ export class Checkbox implements ControlValueAccessor {
     }
 }
 
+export interface CheckBoxOnChangeEvent {
+    checked: boolean;
+    originalEvent: Event;
+}
+
 @NgModule({
     imports: [CommonModule],
     exports: [Checkbox],
     declarations: [Checkbox]
 })
 export class CheckboxModule { }
-
-export interface CheckBoxEvent {
-    checked: boolean;
-    originalEvent: Event;
-}
